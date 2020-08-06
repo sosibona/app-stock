@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <div class="grid-content bg-purple-light container">
+        <div class="grid-content bg-purple-light container-app">
           <el-container>
             <el-header>
               <div class="main">
@@ -13,7 +13,20 @@
                   <app-action></app-action>
                 </div>
               </div>
+              <div class="main-wrapper">
               <router-view></router-view>
+              </div>
+              <div class="error-message">
+                <el-alert v-if="error"
+                  title="error alert"
+                  type="error"
+                  :description="error"
+                  show-icon
+                  class="error-box"
+                  @close="closeError"
+                >
+                </el-alert>
+              </div>
             </el-header>
           </el-container>
         </div>
@@ -30,11 +43,39 @@ export default {
   components: {
     appNavigation: Navigation,
     appAction: Action
+  },
+  computed: {
+    error () {
+      return this.$store.getters.error
+    }
+  },
+  methods: {
+    closeError () {
+      this.$store.dispatch('clearError')
+    }
   }
 }
 </script>
 
 <style scoped>
+.error-message {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  /* position: fixed;
+  left: 50%;
+  right: 50%; */
+  width: 80%;
+  height: 200px;
+}
+
+.error-box {
+  /* width: 80%; */
+  height: 50px;
+  line-height: 1;
+  text-align: left;
+}
 .cards {
   margin-top: 30px;
   display: flex;
@@ -53,8 +94,7 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
-.container {
-  height: 100vh;
+.container-app {
   padding: 50px;
   box-sizing: content-box;
 }

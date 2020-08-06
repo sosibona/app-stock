@@ -68,10 +68,7 @@ export default {
             .then(() => {
               this.$router.push('/')
             })
-            .catch((err) => console.log(err))
-        } else {
-          console.log('error submit!!')
-          return false
+            .catch(() => {})
         }
       })
     }

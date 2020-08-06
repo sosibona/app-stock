@@ -12,7 +12,6 @@ export default {
         hasProduct.quantity += quantity
       } else {
         state.shares.push({ id: productId, quantity: quantity })
-        console.log(state.shares)
       }
     },
     sellProducts (state, payload) {

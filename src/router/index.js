@@ -5,6 +5,7 @@ import Stocks from '../components/Stock/Stocks.vue'
 import Portfolio from '../components/Portfolio/Portfolio.vue'
 import Login from '../components/Auth/Login.vue'
 import Registration from '../components/Auth/Registration.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -44,6 +45,12 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name === 'Register' && !store.getters.user) next()
+  else if (to.name !== 'Login' && !store.getters.user) next({ name: 'Login' })
+  else next()
 })
 
 export default router

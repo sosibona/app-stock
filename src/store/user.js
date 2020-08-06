@@ -45,6 +45,9 @@ export default {
         commit('setError', error.message)
         throw error
       }
+    },
+    autoLogInUser ({ commit }, { email, uid }) {
+      commit('setUser', { email, id: uid })
     }
   },
   getters: {

@@ -1,6 +1,6 @@
 <template>
   <div class="form">
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
       <el-form-item prop="email" label="Email" required>
         <el-input type="email" v-model="ruleForm.email"></el-input>
       </el-form-item>
@@ -8,7 +8,7 @@
         <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">Login</el-button>
+        <el-button type="primary" :loading="loading" @click="submitForm('ruleForm')">Login</el-button>
       </el-form-item>
     </el-form>
   </div>

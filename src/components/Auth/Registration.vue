@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     var validatePass = (rule, value, callback) => {
@@ -68,9 +69,9 @@ export default {
     }
   },
   computed: {
-    loading () {
-      return this.$store.getters.loading
-    }
+    ...mapGetters([
+      'loading'
+    ])
   },
   methods: {
     submitForm (formName) {

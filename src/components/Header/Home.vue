@@ -8,15 +8,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
-    money () {
-      return this.$store.getters.money
-    },
-    user () {
-      console.log('1')
-      return this.$store.user
-    }
+    ...mapGetters([
+      'money',
+      'user'
+    ])
   }
 }
 

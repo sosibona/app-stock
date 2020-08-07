@@ -12,11 +12,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   computed: {
-    error () {
-      return this.$store.getters.error
-    }
+    ...mapGetters([
+      'error'
+    ])
   },
   methods: {
     closeError () {

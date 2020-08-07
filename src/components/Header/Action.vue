@@ -11,6 +11,7 @@
 
 <script>
 import { savedData, getData } from '../../service/api'
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
@@ -19,18 +20,12 @@ export default {
     }
   },
   computed: {
-    money () {
-      return this.$store.getters.money
-    },
-    user () {
-      return this.$store.getters.user
-    },
-    stocks () {
-      return this.$store.getters.allProducts
-    },
-    shares () {
-      return this.$store.getters.shares
-    }
+    ...mapGetters([
+      'money',
+      'user',
+      'allProducts',
+      'shares'
+    ])
   },
   methods: {
     endDay () {

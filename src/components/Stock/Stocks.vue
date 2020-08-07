@@ -6,15 +6,16 @@
 
 <script>
 import Card from './Card'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     appCard: Card
   },
   computed: {
-    allProducts () {
-      return this.$store.getters.allProducts
-    }
+    ...mapGetters([
+      'allProducts'
+    ])
   }
 }
 </script>

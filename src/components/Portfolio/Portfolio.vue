@@ -10,12 +10,13 @@
 
 <script>
 import Card from './Card'
+import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    shares () {
-      return this.$store.getters.shares
-    }
+    ...mapGetters([
+      'shares'
+    ])
   },
   components: {
     appCard: Card

@@ -18,6 +18,8 @@
 
 <script>
 import { isPositiveInteger } from '../../service/helper'
+import { mapGetters } from 'vuex'
+
 export default {
   props: ['card'],
   data () {
@@ -30,9 +32,9 @@ export default {
     isCorrect () {
       return isPositiveInteger(this.quanity) || this.quanity * this.card.price > this.money
     },
-    money () {
-      return this.$store.getters.money
-    }
+    ...mapGetters([
+      'money'
+    ])
   },
   watch: {
     quanity () {

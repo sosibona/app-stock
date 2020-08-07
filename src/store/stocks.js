@@ -22,11 +22,19 @@ export default {
         }
       })
       state.products = newPrice
+    },
+    setDataStock (state, payload) {
+      state.products = payload
     }
   },
   actions: {
     changePrice ({ commit }) {
       commit('endDay')
+    },
+    setLoadData ({ commit, dispatch }, payload) {
+      const { money, portfolio } = payload
+      commit('setDataStock', payload.stocks)
+      dispatch('setDataPortfolio', { money, portfolio }, { root: true })
     }
   },
   getters: {

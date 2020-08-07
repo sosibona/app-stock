@@ -1,30 +1,69 @@
 <template>
 <!-- <span>${{ money | localeDisplayMoney }}</span> -->
-<el-row>
-  <el-button class="end-day" @click="endDay">End Day</el-button>
-  <span class="action-money">Founds: ${{money | localeDisplayMoney}}</span>
-</el-row>
-  <!-- <el-menu class="el-menu-demo" mode="horizontal">
-    <el-menu-item>End day</el-menu-item>
-    <el-submenu>
-      <template slot="title">Save & Load</template>
-      <el-menu-item>Save data</el-menu-item>
-      <el-menu-item>Load data</el-menu-item>
+<el-row v-if="user">
+  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+    <el-menu-item index="2" @click="endDay">End Day</el-menu-item>
+    <el-submenu index="3">
+      <template slot="title">Save&Load</template>
+      <el-menu-item index="3-1" @click="saveData">Save Data</el-menu-item>
+      <el-menu-item index="3-2" @click="loadData">Load Data</el-menu-item>
     </el-submenu>
-  </el-menu> -->
+    <el-menu-item index="4" @click="onLogOutUser">LogOut</el-menu-item>
+    <span class="action-money"><b>Founds:</b> ${{money | localeDisplayMoney}}</span>
+  </el-menu>
+</el-row>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
+  data () {
+    return {
+      activeIndex: '1'
+    }
+  },
   computed: {
     money () {
       return this.$store.getters.money
+    },
+    user () {
+      return this.$store.getters.user
+    },
+    stocks () {
+      return this.$store.getters.allProducts
+    },
+    shares () {
+      return this.$store.getters.shares
     }
   },
   methods: {
     endDay () {
-      console.log('1')
       this.$store.dispatch('changePrice')
+    },
+    onLogOutUser () {
+      this.$store.dispatch('logOutUser')
+        .then(() => {
+          this.$router.push('/login')
+        })
+        .catch(() => {})
+    },
+    saveData () {
+      const data = {
+        money: this.money,
+        portfolio: this.shares,
+        stocks: this.stocks,
+        userId: this.user.id
+      }
+      axios.put('https://app-stock-trader.firebaseio.com/data.json', data)
+    },
+    loadData () {
+      axios.get('https://app-stock-trader.firebaseio.com/data.json')
+        .then(response => {
+          if (!response.data) return
+          this.$store.dispatch('setLoadData', response.data)
+        })
+        .catch(error => console.log(error))
     }
   }
 }

@@ -1,49 +1,82 @@
 <template>
   <div class="box-card">
     <div class="box-card__header">
-      <div><b>{{card.name}}</b> - (price: {{card.price}}) - Quantity: {{card.quantity}}</div>
+      <div><b>{{card.name}}</b> - (price: {{card.price}}) - quanity: {{card.quanity}}</div>
     </div>
     <div class="box-card__container">
-      <el-input class="box-card__input" placeholder="Quantity" type="number" v-model="quantity"></el-input>
-      <el-button type="warning" @click="sellProducts" :disabled="isCorrect">Sell</el-button>
+      <div class="box-card__action">
+        <el-input class="box-card__input" placeholder="quanity" type="number" v-model="quanity"></el-input>
+        <div>
+          <el-button type="warning" @click="sellProducts" :disabled="isCorrect">Sell</el-button>
+          <el-button type="success" @click="maxQuanity">All</el-button>
+        </div>
+      </div>
+      <span v-show="error" class="error-input">{{error}}</span>
     </div>
   </div>
 </template>
 
 <script>
+import { isPositiveInteger } from '../../service/helper'
+
 export default {
   props: ['card'],
   data () {
     return {
-      quantity: ''
+      quanity: '',
+      error: ''
     }
   },
   computed: {
     isCorrect () {
-      return this.quantity === '' || this.quantity === '0' || +this.quantity < 0 || +this.quantity % 1 !== 0 || +this.quantity > this.card.quantity
+      return isPositiveInteger(this.quanity)
+    },
+    money () {
+      return this.$store.getters.money
+    }
+  },
+  watch: {
+    quanity () {
+      if (!Number.isInteger(+this.quanity)) {
+        this.error = 'quanity must be a integer number'
+      } else if (this.quanity === '') {
+        this.error = ''
+      } else if (+this.quanity <= 0) {
+        this.error = 'quanity must be a positive number'
+      } else {
+        this.error = ''
+      }
     }
   },
   methods: {
     sellProducts () {
       const sell = {
-        quantity: this.quantity,
+        quanity: this.quanity,
         productId: this.card.id,
         price: this.card.price
       }
       this.$store.dispatch('sellProducts', sell)
-      this.quantity = ''
+      this.quanity = ''
+    },
+    maxQuanity () {
+      this.quanity = this.card.quanity
     }
   }
 }
 </script>
 
 <style scoped>
+.box-card__action {
+  display: flex;
+  line-height: 2;
+  justify-content: space-between;
+  width: 90%;
+}
 .box-card {
   border-radius: 10px;
-  margin-top: 30px;
   margin-right: 20px;
+  margin-bottom: 30px;
   width: 480px;
-  height: 120px;
   background-color: #fff;
 }
 
@@ -58,7 +91,6 @@ export default {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   padding-left: 20px;
 }
@@ -70,13 +102,17 @@ export default {
 .box-card__container {
   height: 80px;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
+  margin-top: 20px;
 }
 
 .box-card__input {
-  /* display: block; */
   width: 200px;
+}
+.error-input {
+  color: red;
+  line-height: 2;
 }
 
 </style>

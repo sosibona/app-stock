@@ -4,57 +4,82 @@
       <div><b>{{card.name}}</b> - (price: {{card.price}})</div>
     </div>
     <div class="box-card__container">
-      <el-input class="box-card__input" placeholder="Quantity" type="number" v-model="quantity"></el-input>
       <div class="box-card__action">
-        <el-button type="success" @click="buyProducts" :disabled="isCorrect">Buy</el-button>
-        <el-button type="warning" @click="maxQuantity">Max</el-button>
+        <el-input class="box-card__input" placeholder="quanity" type="number" v-model="quanity"></el-input>
+        <div>
+          <el-button type="success" @click="buyProducts" :disabled="isCorrect">Buy</el-button>
+          <el-button type="warning" @click="maxQuanity">Max</el-button>
+        </div>
       </div>
+      <span v-show="error" class="error-input">{{error}}</span>
     </div>
   </div>
 </template>
 
 <script>
+import { isPositiveInteger } from '../../service/helper'
 export default {
   props: ['card'],
   data () {
     return {
-      quantity: ''
+      quanity: '',
+      error: ''
     }
   },
   computed: {
     isCorrect () {
-      return this.quantity === '' || this.quantity === '0' || +this.quantity < 0 || +this.quantity % 1 !== 0
+      return isPositiveInteger(this.quanity) || this.quanity * this.card.price > this.money
     },
     money () {
       return this.$store.getters.money
     }
   },
+  watch: {
+    quanity () {
+      if (!Number.isInteger(+this.quanity)) {
+        this.error = 'quanity must be a integer number'
+      } else if (this.quanity === '') {
+        this.error = ''
+      } else if (+this.quanity <= 0) {
+        this.error = 'quanity must be a positive number'
+      } else if (this.quanity * this.card.price > this.money) {
+        this.error = 'You don\'t have enough money'
+      } else {
+        this.error = ''
+      }
+    }
+  },
   methods: {
     buyProducts () {
-      if (this.quantity * this.card.price > this.money) return
+      if (this.quanity * this.card.price > this.money) return
       const order = {
-        quantity: +this.quantity,
+        quanity: +this.quanity,
         productId: this.card.id,
         price: this.card.price
       }
       this.$store.dispatch('buyProducts', order)
-      this.quantity = ''
+      this.quanity = ''
     },
-    maxQuantity () {
-      const maxQuantity = Math.trunc(this.money / this.card.price)
-      this.quantity = maxQuantity
+    maxQuanity () {
+      const maxQuanity = Math.trunc(this.money / this.card.price)
+      this.quanity = maxQuanity
     }
   }
 }
 </script>
 
 <style scoped>
+.box-card__action {
+  display: flex;
+  line-height: 2;
+  justify-content: space-between;
+  width: 90%;
+}
 .box-card {
   border-radius: 10px;
-  margin-top: 30px;
+  margin-bottom: 30px;
   margin-right: 20px;
   width: 480px;
-  height: 120px;
   background-color: #fff;
 }
 
@@ -69,7 +94,6 @@ export default {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   padding-left: 20px;
 }
@@ -81,12 +105,17 @@ export default {
 .box-card__container {
   height: 80px;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
+  margin-top: 20px;
 }
 
 .box-card__input {
   width: 200px;
+}
+.error-input {
+  color: red;
+  line-height: 2;
 }
 
 </style>

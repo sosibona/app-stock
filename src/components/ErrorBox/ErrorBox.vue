@@ -1,7 +1,6 @@
 <template>
-  <div class="error-message">
+  <div class="error-message" v-show="error">
     <el-alert
-      v-if="error"
       title="error alert"
       type="error"
       :description="error"

@@ -25,7 +25,6 @@ export default {
 
 <style scoped>
 .cards {
-  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;

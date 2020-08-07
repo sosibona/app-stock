@@ -20,8 +20,31 @@ export default {
 </script>
 
 <style scoped>
+.sort-stock {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sort-stock-item {
+  margin-right: 10px;
+}
+
+.sort-stock-item:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sort-stock-item:first-child {
+  cursor: default;
+}
+
+.sort-stock-item:first-child:hover {
+  text-decoration: none;
+}
+
 .cards {
-  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;

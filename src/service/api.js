@@ -5,7 +5,6 @@ const baseUrl = 'https://app-stock-trader.firebaseio.com/data.json'
 export function savedData (data) {
   return axios.put(baseUrl, data)
     .then(response => {
-      console.log(response)
       return response.data
     })
     .catch(err => err)

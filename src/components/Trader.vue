@@ -6,7 +6,8 @@
           <el-container>
             <el-header>
               <div class="navigation">
-                <div>
+                <div class="nav-header">
+                  <h1>Stock Trade</h1>
                   <app-navigation></app-navigation>
                 </div>
                 <div>
@@ -40,6 +41,16 @@ export default {
 </script>
 
 <style scoped>
+.nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+h1 {
+  margin: 0;
+  line-height: 1;
+  color: #409eff;
+}
 .cards {
   margin-top: 30px;
   display: flex;

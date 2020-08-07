@@ -1,6 +1,6 @@
 <template>
 <el-row v-if="user">
-  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+  <el-menu :default-active="1" class="el-menu-demo" mode="horizontal">
     <el-menu-item index="2" @click="endDay">End Day</el-menu-item>
     <el-submenu index="3">
       <template slot="title">Save&Load</template>

@@ -1,5 +1,4 @@
 <template>
-<!-- <span>${{ money | localeDisplayMoney }}</span> -->
 <el-row v-if="user">
   <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
     <el-menu-item index="2" @click="endDay">End Day</el-menu-item>
@@ -15,7 +14,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { savedData, getData } from '../../service/api'
 
 export default {
   data () {
@@ -55,15 +54,13 @@ export default {
         stocks: this.stocks,
         userId: this.user.id
       }
-      axios.put('https://app-stock-trader.firebaseio.com/data.json', data)
+      savedData(data)
     },
     loadData () {
-      axios.get('https://app-stock-trader.firebaseio.com/data.json')
-        .then(response => {
-          if (!response.data) return
-          this.$store.dispatch('setLoadData', response.data)
-        })
-        .catch(error => console.log(error))
+      getData().then(response => {
+        if (!response.data) return
+        this.$store.dispatch('setLoadData', response.data)
+      })
     }
   }
 }

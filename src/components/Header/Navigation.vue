@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-active="activeIndex" active-text-color="#409eff" class="el-menu-demo" mode="horizontal" router>
+  <el-menu :default-active="$route.path" active-text-color="#409eff" class="el-menu-demo" mode="horizontal" router>
     <template v-if="user">
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item index="/portfolio">Portfolio</el-menu-item>
@@ -14,12 +14,6 @@
 
 <script>
 export default {
-  // попробувати route.path
-  data () {
-    return {
-      activeIndex: '/'
-    }
-  },
   computed: {
     user () {
       return this.$store.getters.user

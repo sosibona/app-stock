@@ -1,12 +1,8 @@
 <template>
 <el-row v-if="user">
-  <el-menu :default-active="1" class="el-menu-demo" mode="horizontal">
+  <el-menu :default-active="'1'" class="el-menu-demo" mode="horizontal">
     <el-menu-item index="2" @click="endDay">End Day</el-menu-item>
-    <el-submenu index="3">
-      <template slot="title">Save&Load</template>
-      <el-menu-item index="3-1" @click="saveData">Save Data</el-menu-item>
-      <el-menu-item index="3-2" @click="loadData">Load Data</el-menu-item>
-    </el-submenu>
+    <el-menu-item index="3" @click="saveData">Save Data</el-menu-item>
     <el-menu-item index="4" @click="onLogOutUser">LogOut</el-menu-item>
     <span class="action-money"><b>Founds:</b> ${{money | localeDisplayMoney}}</span>
   </el-menu>

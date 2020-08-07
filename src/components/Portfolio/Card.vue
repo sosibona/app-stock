@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     isCorrect () {
-      return isPositiveInteger(this.quanity)
+      return isPositiveInteger(this.quanity) || this.quanity * this.card.price > this.money || this.quanity > this.card.quanity
     },
     money () {
       return this.$store.getters.money
@@ -43,6 +43,8 @@ export default {
         this.error = ''
       } else if (+this.quanity <= 0) {
         this.error = 'quanity must be a positive number'
+      } else if (+this.quanity > this.card.quanity) {
+        this.error = 'you don\'t have enough'
       } else {
         this.error = ''
       }

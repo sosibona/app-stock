@@ -27,6 +27,7 @@ const config = {
 
 firebase.initializeApp(config)
 firebase.auth().onAuthStateChanged(async user => {
+  console.log(user)
   if (!app) {
     if (user) {
       store.dispatch('autoLogInUser', user)
@@ -34,9 +35,6 @@ firebase.auth().onAuthStateChanged(async user => {
     app = new Vue({
       router,
       store,
-      created () {
-        this.$store.dispatch('changePrice')
-      },
       render: h => h(App)
     }).$mount('#app')
   }

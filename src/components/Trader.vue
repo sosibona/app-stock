@@ -48,6 +48,7 @@ export default {
 }
 h1 {
   margin: 0;
+  margin-right: 10px;
   line-height: 1;
   color: #409eff;
 }

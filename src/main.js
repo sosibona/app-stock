@@ -23,10 +23,10 @@ axios.interceptors.response.use((response) => {
   }
   return response
 }, (error) => {
-  console.log(error)
-  if (error.response && error.response.data) {
-    return Promise.reject(error.response.data)
-  }
+  // console.log(error)
+  // if (error.response && error.response.data) {
+  //   return Promise.reject(error.response.data)
+  // }
   return Promise.reject(error.message)
 })
 

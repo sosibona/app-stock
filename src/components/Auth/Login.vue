@@ -69,6 +69,7 @@ export default {
             email: this.ruleForm.email,
             password: this.ruleForm.pass
           }
+          console.log('login 1', user)
           this.loginUser(user)
             .then(() => {
               this.$router.push('/')

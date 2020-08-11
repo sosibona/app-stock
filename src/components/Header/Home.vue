@@ -13,8 +13,7 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'money',
-      'user'
+      'money'
     ])
   }
 }

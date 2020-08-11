@@ -16,6 +16,9 @@ export default {
     ...mapGetters([
       'allProducts'
     ])
+  },
+  created () {
+    console.log('created')
   }
 }
 </script>

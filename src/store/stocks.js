@@ -2,12 +2,7 @@ import { getRandomInt } from '../service/helper'
 
 export default {
   state: {
-    products: [
-      // { id: '1', name: 'Google', price: getRandomInt(50, 100) },
-      // { id: '2', name: 'Amazon', price: getRandomInt(50, 100) },
-      // { id: '3', name: 'Audi', price: getRandomInt(50, 100) },
-      // { id: '4', name: 'LG', price: getRandomInt(50, 100) }
-    ]
+    products: []
   },
   mutations: {
     endDay (state) {

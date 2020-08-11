@@ -19,7 +19,8 @@ export default {
       'money',
       'isUserLogIn',
       'allProducts',
-      'shares'
+      'shares',
+      'userEmail'
     ])
   },
   methods: {
@@ -38,7 +39,8 @@ export default {
       const data = {
         money: this.money,
         portfolio: this.shares,
-        stocks: this.allProducts
+        stocks: this.allProducts,
+        email: this.userEmail
       }
       updateData(data)
     },

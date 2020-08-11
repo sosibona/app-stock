@@ -81,6 +81,7 @@ export default {
             email: this.ruleForm.email,
             password: this.ruleForm.pass
           }
+          console.log('regisre 1', newUser)
           this.$store.dispatch('registrationUser', newUser)
             .then(() => {
               this.$router.push('/')

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { savedData, getData } from '../../service/api'
+import { getData, updateData } from '../../service/api'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -34,13 +34,13 @@ export default {
       // .catch(() => {})
     },
     saveData () {
+      console.log('saveData')
       const data = {
         money: this.money,
         portfolio: this.shares,
-        stocks: this.stocks,
-        userId: this.user.id
+        stocks: this.allProducts
       }
-      savedData(data)
+      updateData(data)
     },
     loadData () {
       getData().then(response => {

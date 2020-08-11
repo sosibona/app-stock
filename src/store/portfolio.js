@@ -1,6 +1,6 @@
 export default {
   state: {
-    money: 10000,
+    money: 0,
     shares: []
   },
   mutations: {
@@ -23,7 +23,7 @@ export default {
         state.shares = state.shares.filter(share => share.id !== productId)
       }
     },
-    setDataPortfolio2 (state, payload) {
+    setDataPortfolio (state, payload) {
       state.money = payload.money
       state.shares = payload.shares ? payload.shares : []
     }
@@ -36,7 +36,7 @@ export default {
       commit('sellProducts', payload)
     },
     setDataPortfolio ({ commit }, payload) {
-      commit('setDataPortfolio2', payload)
+      commit('setDataPortfolio', payload)
     }
   },
   getters: {

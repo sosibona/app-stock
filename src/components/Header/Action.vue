@@ -1,5 +1,5 @@
 <template>
-<el-row v-if="user">
+<el-row v-if="isUserLogIn">
   <el-menu :default-active="'1'" class="el-menu-demo" mode="horizontal">
     <el-menu-item index="2" @click="endDay">End Day</el-menu-item>
     <el-menu-item index="3" @click="saveData">Save Data</el-menu-item>
@@ -14,15 +14,10 @@ import { savedData, getData } from '../../service/api'
 import { mapGetters } from 'vuex'
 
 export default {
-  data () {
-    return {
-      activeIndex: '1'
-    }
-  },
   computed: {
     ...mapGetters([
       'money',
-      'user',
+      'isUserLogIn',
       'allProducts',
       'shares'
     ])
@@ -32,11 +27,11 @@ export default {
       this.$store.dispatch('changePrice')
     },
     onLogOutUser () {
-      this.$store.dispatch('logOutUser')
-        .then(() => {
-          this.$router.push('/login')
-        })
-        .catch(() => {})
+      this.$store.dispatch('logOut')
+      // .then(() => {
+      //   this.$router.push('/login')
+      // })
+      // .catch(() => {})
     },
     saveData () {
       const data = {

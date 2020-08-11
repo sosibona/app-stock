@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data () {
@@ -59,6 +59,9 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      'loginUser'
+    ]),
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -66,7 +69,7 @@ export default {
             email: this.ruleForm.email,
             password: this.ruleForm.pass
           }
-          this.$store.dispatch('loginUser', user)
+          this.loginUser(user)
             .then(() => {
               this.$router.push('/')
             })

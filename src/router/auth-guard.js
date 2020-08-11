@@ -1,10 +1,15 @@
 import store from '../store'
 
-export default function (to, from, next) {
-  console.log(store.getters.user)
-  if (store.getters.user) {
+export default async function (to, from, next) {
+  if (store.state.user.idToken) {
     next()
   } else {
-    next('/login')
+    await store.dispatch('tryAutoLogin')
+
+    if (store.state.user.idToken) {
+      next()
+    } else {
+      next('/login')
+    }
   }
 }

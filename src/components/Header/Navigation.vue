@@ -1,6 +1,6 @@
 <template>
   <el-menu :default-active="$route.path" active-text-color="#409eff" class="el-menu-demo" mode="horizontal" router>
-    <template v-if="user">
+    <template v-if="isUserLogIn">
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item index="/portfolio">Portfolio</el-menu-item>
       <el-menu-item index="/stocks">Stocks</el-menu-item>
@@ -17,7 +17,7 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'user'
+      'isUserLogIn'
     ])
   }
 }

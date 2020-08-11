@@ -11,7 +11,7 @@
 
 <script>
 import { getData, updateData } from '../../service/api'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
@@ -24,18 +24,18 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      'changePrice',
+      'logOut',
+      'setLoadData'
+    ]),
     endDay () {
-      this.$store.dispatch('changePrice')
+      this.changePrice()
     },
     onLogOutUser () {
-      this.$store.dispatch('logOut')
-      // .then(() => {
-      //   this.$router.push('/login')
-      // })
-      // .catch(() => {})
+      this.logOut()
     },
     saveData () {
-      console.log('saveData')
       const data = {
         money: this.money,
         portfolio: this.shares,
@@ -47,7 +47,7 @@ export default {
     loadData () {
       getData().then(response => {
         if (!response.data) return
-        this.$store.dispatch('setLoadData', response.data)
+        this.setLoadData(response.data)
       })
     }
   }

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     var validatePass = (rule, value, callback) => {
@@ -74,6 +74,9 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      'registrationUser'
+    ]),
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -81,8 +84,7 @@ export default {
             email: this.ruleForm.email,
             password: this.ruleForm.pass
           }
-          console.log('regisre 1', newUser)
-          this.$store.dispatch('registrationUser', newUser)
+          this.registrationUser(newUser)
             .then(() => {
               this.$router.push('/')
             })

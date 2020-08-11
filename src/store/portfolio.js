@@ -24,7 +24,6 @@ export default {
       }
     },
     setDataPortfolio (state, payload) {
-      console.log('no register 7 setDataPortfolio', payload)
       state.money = payload.money
       state.shares = payload.portfolio ? payload.portfolio : []
     }

@@ -7,7 +7,7 @@
       <div class="box-card__action">
         <el-input class="box-card__input" placeholder="quanity" type="number" v-model="quanity"></el-input>
         <div>
-          <el-button type="success" @click="buyProducts" :disabled="isCorrect">Buy</el-button>
+          <el-button type="success" @click="buyProduct" :disabled="isCorrect">Buy</el-button>
           <el-button type="warning" @click="maxQuanity">Max</el-button>
         </div>
       </div>
@@ -18,7 +18,7 @@
 
 <script>
 import { isPositiveInteger } from '../../service/helper'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   props: ['card'],
@@ -52,14 +52,17 @@ export default {
     }
   },
   methods: {
-    buyProducts () {
+    ...mapActions([
+      'buyProducts'
+    ]),
+    buyProduct () {
       if (this.quanity * this.card.price > this.money) return
       const order = {
         quanity: +this.quanity,
         productId: this.card.id,
         price: this.card.price
       }
-      this.$store.dispatch('buyProducts', order)
+      this.buyProducts(order)
       this.quanity = ''
     },
     maxQuanity () {

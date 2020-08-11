@@ -18,16 +18,12 @@ axios.defaults.baseURL = 'app-stock-trader.firebaseapp.com'
 axios.defaults.headers.get.Accepts = 'application/json'
 
 axios.interceptors.response.use((response) => {
-  if (response.status === 401) {
-    alert('You are not authorized')
-  }
   return response
-}, (error) => {
-  // console.log(error)
-  // if (error.response && error.response.data) {
-  //   return Promise.reject(error.response.data)
-  // }
-  return Promise.reject(error.message)
+}, function (error) {
+  if (error.response.status === 401 || error.response.status === 403) {
+    router.push('/login')
+  }
+  return error.response
 })
 
 Vue.use(ElementUI)

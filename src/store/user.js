@@ -34,18 +34,11 @@ export default {
       commit('clearError')
       commit('setLoading', true)
       try {
-        // console.log('0')
-        // const user = await signUp({
-        //   email: payload.email,
-        //   password: payload.password,
-        //   returnSecureToken: true
-        // })
         const user = await axios.post('/accounts:signUp?key=AIzaSyBDkE0rOjsD5X2_T2fmdFOrX9QyVt0RFQg', {
           email: payload.email,
           password: payload.password,
           returnSecureToken: true
         })
-        // console.log('200')
         commit('setUser', {
           token: user.data.idToken,
           email: user.data.email
@@ -66,7 +59,6 @@ export default {
         localStorage.setItem('email', user.data.email)
         commit('setLoading', false)
       } catch (error) {
-        console.log(error)
         commit('setLoading', false)
         commit('setError', error.response.data.error.message)
         throw error
